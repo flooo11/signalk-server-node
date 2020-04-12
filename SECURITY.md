@@ -18,7 +18,12 @@ ACLs
 
 Access control lists allow fine grained control of access to specific data in SignalK. The acls are a list which allow specifiying controls for specifc contexts and it goes in the security.json file mentioned above.
 
-The following example defines acls for the self context. It allows anyone to read the paths `"steering.*"`, `"navigation.*"`, `"name"`, `"design.aisShipType"` and allows the admin user permission to write (update) those paths. 
+Permissions should be one of these 3 items :
+- read
+- write
+- put
+
+The following example defines acls for the self context. It allows anyone to read the paths `"steering.*"`, `"navigation.*"`, `"name"`, `"design.aisShipType"` and allows the admin user permission to write (update) those paths.
 
 The second entry allows the user _john_ to read any data coming from the `actisense.35` $source.
 
@@ -45,7 +50,7 @@ If there is no match is found for a specific path in the acl list, then permissi
           ]
         },
         {
-          "sources": [ 'actisense.35' ],
+          "sources": [ "actisense.35" ],
           "permissions": [
             {
               "subject": "john",
