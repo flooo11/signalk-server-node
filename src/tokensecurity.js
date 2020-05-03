@@ -473,6 +473,46 @@ module.exports = function(app, config) {
     callback(null, theConfig)
   }
 
+  strategy.getAcls = aConfig => {
+    if (aConfig && aConfig.acls) {
+      var acls = [];
+      var acl = {};
+      aConfig.acls.forEach(ctx => {
+        acl.context = ctx.context;
+        ctx.resources.forEach(resource => {
+          if (resource.paths)
+            acl.paths = resource.paths
+          else acl.paths = null; //delete acl.path
+          if (resource.sources)
+            acl.sources = resource.sources
+          else acl.sources = null;
+          resource.permissions.forEach(permission => {
+            acl.user = permission.subject;
+            acl.permission = permission.permission;
+            acls.push({
+              context: acl.context,
+              paths: acl.paths,
+              sources: acl.sources,
+              user: acl.user,
+              permission: acl.permission,
+            });
+          })
+        })
+      });
+      return acls;
+    } else {
+      return []
+    }
+  }
+
+  strategy.updateAcls = (theConfig, update, callback) => {
+    //Faire ici le traitement pour réintégrer les ACLs dans la config
+    var err = null
+    console.log("ACLs")
+    console.log(update)
+    callback(err, theConfig)
+  }
+
   strategy.getDevices = theConfig => {
     if (theConfig && theConfig.devices) {
       return theConfig.devices
@@ -712,6 +752,7 @@ module.exports = function(app, config) {
 
     if (!configuration.acls || configuration.acls.length === 0) {
       // no acls, so allow anything
+      console.log("No ACL defined. All is allowed"); // MBa pour debug
       return true
     }
 

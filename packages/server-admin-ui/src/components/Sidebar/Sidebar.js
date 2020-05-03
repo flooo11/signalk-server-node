@@ -295,6 +295,10 @@ const mapStateToProps = state => {
         {
           name: 'Users',
           url: '/security/users'
+        },
+        {
+          name: 'ACLs',
+          url: '/security/acls'
         }
       ]
     }

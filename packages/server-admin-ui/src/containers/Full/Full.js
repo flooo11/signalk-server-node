@@ -18,6 +18,7 @@ import Configuration from '../../views/Configuration'
 import Login from '../../views/security/Login'
 import SecuritySettings from '../../views/security/Settings'
 import Users from '../../views/security/Users'
+import Acls from '../../views/security/Acls'
 import Devices from '../../views/security/Devices'
 import Register from '../../views/security/Register'
 import AccessRequests from '../../views/security/AccessRequests'
@@ -105,6 +106,7 @@ class Full extends Component {
                 />
                 <Route path='/security/settings' component={loginOrOriginal(SecuritySettings)} />
                 <Route path='/security/users' component={loginOrOriginal(Users)} />
+                <Route path='/security/acls' component={loginOrOriginal(Acls)} />
                 <Route path='/security/devices' component={loginOrOriginal(Devices)} />
                 <Route path='/security/access/requests' component={loginOrOriginal(AccessRequests)} />
                 <Route path='/login' component={Login} />

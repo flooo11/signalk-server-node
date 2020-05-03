@@ -166,6 +166,24 @@ module.exports = function(app, saveSecurityConfig, getSecurityConfig) {
     }
   })
 
+  app.get('/security/acls', (req, res, next) => {
+    if (checkAllowConfigure(req, res)) {
+      const config = getSecurityConfig(app)
+      res.json(app.securityStrategy.getAcls(config))
+    }
+  })
+
+  app.put('/security/acls', (req, res, next) => {
+    if (checkAllowConfigure(req, res)) {
+      const config = getSecurityConfig(app)
+      app.securityStrategy.updateAcls(
+        config,
+        req.body,
+        getConfigSavingCallback('Acls updated', 'Unable to update acls', res)
+      )
+    }
+  })
+
   app.get('/security/users', (req, res, next) => {
     if (checkAllowConfigure(req, res)) {
       const config = getSecurityConfig(app)
